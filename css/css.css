@@ -1,0 +1,11 @@
+body{
+/* background: linear-gradient(45deg , rgb(130, 65, 65) , rgb(93, 34, 34) , rgb(255, 0, 0)); */
+background-color: blanchedalmond;
+}
+
+.by{
+    margin-top: 20%;
+
+    width: 100%;
+    color: white;
+}

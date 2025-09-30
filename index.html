@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Password Login</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f0f0f0;
+      padding: 50px;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 300px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px;
+      width: 100%;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    #msg {
+      margin-top: 10px;
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>🔑 Enter Password</h2>
+    <input type="password" id="passwordInput" placeholder="Enter password..." />
+    <button id="loginBtn">Login</button>
+    <p id="msg"></p>
+  </div>
+
+  <script>
+    const correctPassword = "admin1"; // 🔹 هنا حط الباسورد اللي إنت عايزه
+
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      const input = document.getElementById("passwordInput").value;
+      if (input === correctPassword) {
+        window.location.href = "index-html/index.html"; // لو صح → يفتح برنامجك
+      } else {
+        document.getElementById("msg").textContent = "❌ Wrong password!";
+      }
+    });
+  </script>
+</body>
+</html>

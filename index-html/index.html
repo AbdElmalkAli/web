@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="../imges/download.jpg">
+  <meta charset="utf-8" />
+  <title>تخزن</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width:700px; margin:auto; background:#f9f9f9; }
+    h1 { color:#333; text-align:center; }
+    input, button {
+      display:block; width:100%; margin-bottom:10px; padding:8px; font-size:16px; 
+      border:2px solid #ccc; border-radius:6px;
+    }
+    button { width:auto; display:inline-block; margin-top:5px; cursor:pointer; }
+    #save { background:#4CAF50; color:white; border:none; }
+    .deleteBtn { background:#f44336; color:white; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; }
+    .list { margin-top:20px; padding:10px; border:1px solid #ccc; border-radius:8px; background:white; }
+    .item { padding:8px; margin-bottom:8px; border-left:5px solid #4CAF50; background:#f1f1f1; border-radius:4px; display:flex; justify-content:space-between; align-items:center; }
+    .item span { display:block; }
+    #search { margin-bottom:15px; border:2px solid #4CAF50; }
+  </style>
+  <link rel="stylesheet" href="../css/css.css">
+</head>
+<body>
+  <h1>welcame</h1>
+  
+  <!-- 3 inputs -->
+  <input id="input1" placeholder="اسم" />
+  <input id="input2" type="number" placeholder="رقم" />
+  <input id="input3" placeholder="اي حاجه" />
+  <button id="save">Save</button>
+
+  <!-- Search box -->
+  <input id="search" placeholder="🔍 Search..." />
+
+  <!-- List -->
+  <div class="list" id="list">
+    <h3>Saved Data:</h3>
+  </div>
+  <div class="by">
+    <h1>web by AbdElmalk</h1>
+  </div>
+  <script>
+    // تحميل البيانات
+    let savedData = JSON.parse(localStorage.getItem("entries")) || [];
+
+    function renderList(filter = "") {
+      const list = document.getElementById("list");
+      list.innerHTML = "<h3>Saved Data:</h3>";
+      savedData.forEach((entry, index) => {
+        const text = `${entry.input1} ${entry.input2} ${entry.input3}`.toLowerCase();
+        if (text.includes(filter.toLowerCase())) {
+          const div = document.createElement("div");
+          div.className = "item";
+          div.innerHTML = `
+            <div>
+              <span><b>Input 1:</b> ${entry.input1}</span>
+              <span><b>Input 2:</b> ${entry.input2}</span>
+              <span><b>Input 3:</b> ${entry.input3}</span>
+            </div>
+            <button class="deleteBtn" data-index="${index}">Delete</button>
+          `;
+          list.appendChild(div);
+        }
+      });
+
+      // تفعيل زرار المسح
+      document.querySelectorAll(".deleteBtn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          const index = e.target.getAttribute("data-index");
+          savedData.splice(index, 1);
+          localStorage.setItem("entries", JSON.stringify(savedData));
+          renderList(document.getElementById("search").value);
+        });
+      });
+    }
+
+    // أول عرض
+    renderList();
+
+    // حفظ
+    document.getElementById("save").addEventListener("click", () => {
+      const entry = {
+        input1: document.getElementById("input1").value,
+        input2: document.getElementById("input2").value,
+        input3: document.getElementById("input3").value
+      };
+      if (entry.input1 || entry.input2 || entry.input3) {
+        savedData.push(entry);
+        localStorage.setItem("entries", JSON.stringify(savedData));
+        renderList(document.getElementById("search").value);
+        document.getElementById("input1").value = "";
+        document.getElementById("input2").value = "";
+        document.getElementById("input3").value = "";
+      }
+    });
+
+    // البحث
+    document.getElementById("search").addEventListener("input", (e) => {
+      renderList(e.target.value);
+    });
+  </script>
+</body>
+</html>
