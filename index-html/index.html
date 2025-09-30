@@ -1,36 +1,84 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="../imges/download.jpg">
   <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="../imges/download.jpg">
+
   <title>تخزن</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width:700px; margin:auto; background:#f9f9f9; }
-    h1 { color:#333; text-align:center; }
-    input, button {
-      display:block; width:100%; margin-bottom:10px; padding:8px; font-size:16px; 
-      border:2px solid #ccc; border-radius:6px;
+    body {
+      font-family: Arial, sans-serif;
+      background:#111;
+      color:#fff;
+      margin:0;
+      padding:20px;
+      text-align:center;
     }
-    button { width:auto; display:inline-block; margin-top:5px; cursor:pointer; }
-    #save { background:#4CAF50; color:white; border:none; }
-    .deleteBtn { background:#f44336; color:white; border:none; padding:6px 10px; border-radius:6px; cursor:pointer; }
-    .list { margin-top:20px; padding:10px; border:1px solid #ccc; border-radius:8px; background:white; }
-    .item { padding:8px; margin-bottom:8px; border-left:5px solid #4CAF50; background:#f1f1f1; border-radius:4px; display:flex; justify-content:space-between; align-items:center; }
-    .item span { display:block; }
-    #search { margin-bottom:15px; border:2px solid #4CAF50; }
+    h1 {
+      color:#4CAF50;
+      font-size:3rem; /* عنوان كبير */
+    }
+    input, button {
+      padding:20px;  /* أكبر */
+      font-size:1.5rem; /* خط كبير */
+      margin:10px;
+      border-radius:10px;
+      border:2px solid #4CAF50;
+      width:80%; 
+      max-width:700px; /* علشان يبان وسط الشاشة */
+      display:block;
+      margin-left:auto;
+      margin-right:auto;
+    }
+    button {
+      background:#4CAF50;
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+    }
+    button:hover { background:#45a049; }
+    .list {
+      margin-top:20px;
+      text-align:left;
+      background:#222;
+      padding:20px;
+      border-radius:12px;
+      max-width:900px;
+      margin-left:auto;
+      margin-right:auto;
+      font-size:1.3rem;
+    }
+    .item {
+      background:#333;
+      padding:15px;
+      margin:10px 0;
+      border-left:6px solid #4CAF50;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-radius:8px;
+    }
+    .deleteBtn {
+      background:#f44336;
+      border:none;
+      padding:15px 25px;
+      color:white;
+      border-radius:8px;
+      font-size:1.2rem;
+      cursor:pointer;
+    }
   </style>
-  <link rel="stylesheet" href="../css/css.css">
 </head>
 <body>
-  <h1>welcame</h1>
-  
-  <!-- 3 inputs -->
-  <input id="input1" placeholder="اسم" />
-  <input id="input2" type="number" placeholder="رقم" />
-  <input id="input3" placeholder="اي حاجه" />
-  <button id="save">Save</button>
+  <h1>📺 My Program</h1>
 
-  <!-- Search box -->
+  <!-- Inputs -->
+  <input id="input1" placeholder="First input..." />
+  <input id="input2" placeholder="Second input..." />
+  <input id="input3" placeholder="Third input..." />
+  <button id="save">💾 Save</button>
+
+  <!-- Search -->
   <input id="search" placeholder="🔍 Search..." />
 
   <!-- List -->
@@ -41,7 +89,6 @@
     <h1>web by AbdElmalk</h1>
   </div>
   <script>
-    // تحميل البيانات
     let savedData = JSON.parse(localStorage.getItem("entries")) || [];
 
     function renderList(filter = "") {
@@ -64,7 +111,6 @@
         }
       });
 
-      // تفعيل زرار المسح
       document.querySelectorAll(".deleteBtn").forEach(btn => {
         btn.addEventListener("click", (e) => {
           const index = e.target.getAttribute("data-index");
@@ -75,10 +121,8 @@
       });
     }
 
-    // أول عرض
     renderList();
 
-    // حفظ
     document.getElementById("save").addEventListener("click", () => {
       const entry = {
         input1: document.getElementById("input1").value,
@@ -95,7 +139,6 @@
       }
     });
 
-    // البحث
     document.getElementById("search").addEventListener("input", (e) => {
       renderList(e.target.value);
     });
